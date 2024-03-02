@@ -12,6 +12,13 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+/* banner logo */
+#banner-logo {
+  background: linear-gradient(to right, #797dfc, #ffffff0f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* media query for small device */
 @media screen and (max-width: 640px) {
   html {
