@@ -17,17 +17,37 @@ tailwind.config = {
 
 // lets discuss functionalities
 
+const getPostByCategory = async () => {
+  letsDiscussLoader(true);
+  document.getElementById("allPost-container").innerHTML = "";
+  const searchField = document.getElementById("searchField");
+  const searchText = searchField.value;
+  const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${searchText}`);
+  const data = await res.json();
+  const { posts } = data;
+  setTimeout(() => {
+    displayAllPosts(posts);
+  }, 2000);
+};
+
 const getAllPosts = async () => {
+  letsDiscussLoader(true);
   const res = await fetch("https://openapi.programming-hero.com/api/retro-forum/posts");
   const data = await res.json();
   const { posts } = data;
-  displayAllPosts(posts);
+  setTimeout(() => {
+    displayAllPosts(posts);
+  }, 2000);
   return posts;
 };
 
 const allPosts = getAllPosts();
 
 function displayAllPosts(posts) {
+  if (posts.length === 0) {
+    letsDiscussLoader(false);
+    return;
+  }
   const allPostContainer = document.getElementById("allPost-container");
   posts.forEach((post) => {
     const isActive = post.isActive;
@@ -93,6 +113,7 @@ function displayAllPosts(posts) {
     </div>
     `;
     allPostContainer.appendChild(newDiv);
+    letsDiscussLoader(false);
   });
 }
 
@@ -134,3 +155,12 @@ const markAsRead = (postId, viewCount) => {
     markAsReadCounter.innerText = markAsReadContainer.childElementCount;
   });
 };
+
+function letsDiscussLoader(isShow) {
+  const allPostLoader = document.getElementById("allPostLoader");
+  if (isShow) {
+    allPostLoader.classList.remove("hidden");
+  } else {
+    allPostLoader.classList.add("hidden");
+  }
+}
