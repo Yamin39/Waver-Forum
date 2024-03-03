@@ -164,3 +164,4 @@ function letsDiscussLoader(isShow) {
     allPostLoader.classList.add("hidden");
   }
 }
+
