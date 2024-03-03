@@ -165,3 +165,64 @@ function letsDiscussLoader(isShow) {
   }
 }
 
+// latest post functionalities
+
+function latestPostsLoader(isShow) {
+  const loader = document.getElementById("latestPostLoader");
+  if (isShow) {
+    loader.classList.remove("hidden");
+  } else {
+    loader.classList.add("hidden");
+  }
+}
+
+const getLatestPosts = async () => {
+  latestPostsLoader(true);
+  const res = await fetch("https://openapi.programming-hero.com/api/retro-forum/latest-posts");
+  const posts = await res.json();
+  setTimeout(() => {
+    displayLatestPosts(posts);
+  }, 2000);
+};
+
+getLatestPosts();
+
+function displayLatestPosts(posts) {
+  const latestPostContainer = document.getElementById("latest-post-container");
+  posts.forEach((post) => {
+    const card = document.createElement("div");
+    card.classList = "p-6 rounded-3xl border border-[#12132D26] h-fit";
+    card.innerHTML = `
+    <div>
+      <img class="rounded-[1.25rem]" src="${post.cover_image}" alt="Post Cover" />
+    </div>
+    <div>
+      <ul class="flex gap-2 text-dark-60 mt-6 mb-4">
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
+            />
+          </svg>
+        </li>
+        <li>${post.author.posted_date || "No publish date"}</li>
+      </ul>
+      <h3 class="font-extrabold text-lg text-dark-full">${post.title}</h3>
+      <p class="text-dark-60 mt-3 mb-4">${post.description}</p>
+    </div>
+    <div class="flex gap-4">
+      <div>
+        <img class="rounded-full w-11" src="${post.profile_image}" alt="User Profile" />
+      </div>
+      <div>
+        <h6 class="font-bold text-dark-full">${post.author.name}</h6>
+        <p class="text-sm text-dark-60">${post.author.designation || "Unknown"}</p>
+      </div>
+    </div>
+    `;
+    latestPostContainer.appendChild(card);
+    latestPostsLoader(false);
+  });
+}
