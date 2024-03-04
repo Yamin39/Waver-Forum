@@ -134,7 +134,6 @@ const markAsRead = (postId, viewCount) => {
     });
     const idIndex = postIdArr.indexOf(parseInt(postId));
     const postTitle = postTitleArr[idIndex];
-    console.log(postTitle);
 
     const div = document.createElement("div");
     div.classList = "flex justify-between gap-6 bg-white rounded-2xl p-4";
