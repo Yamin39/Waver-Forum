@@ -19,6 +19,7 @@ tailwind.config = {
 
 const getPostByCategory = async () => {
   letsDiscussLoader(true);
+  document.getElementById("noPostFound").innerText = "";
   document.getElementById("allPost-container").innerHTML = "";
   const searchField = document.getElementById("searchField");
   const searchText = searchField.value;
@@ -46,6 +47,7 @@ const allPosts = getAllPosts();
 function displayAllPosts(posts) {
   if (posts.length === 0) {
     letsDiscussLoader(false);
+    document.getElementById("noPostFound").innerText = "No Post Found";
     return;
   }
   const allPostContainer = document.getElementById("allPost-container");
