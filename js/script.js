@@ -47,7 +47,7 @@ const allPosts = getAllPosts();
 function displayAllPosts(posts) {
   if (posts.length === 0) {
     letsDiscussLoader(false);
-    document.getElementById("noPostFound").innerText = "No Post Found";
+    document.getElementById("noPostFound").innerText = "Nothing Found";
     return;
   }
   const allPostContainer = document.getElementById("allPost-container");
