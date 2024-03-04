@@ -53,7 +53,8 @@ function displayAllPosts(posts) {
     const isActive = post.isActive;
     const activeStatus = isActive ? "bg-[#10B981]" : "bg-[#FF3434]";
     const newDiv = document.createElement("div");
-    newDiv.classList = "flex flex-col sm:flex-row gap-6 bg-[#F3F3F5] p-10 rounded-3xl";
+    newDiv.classList =
+      "flex flex-col sm:flex-row gap-6 bg-[#F3F3F5] p-10 rounded-3xl hover:bg-[#797DFC1A] hover:border hover:border-[#797DFC] transition duration-300";
     newDiv.innerHTML = `
     <div>
       <div class="w-[4.5rem] indicator">
